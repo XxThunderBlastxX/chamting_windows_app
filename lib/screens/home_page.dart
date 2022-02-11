@@ -16,80 +16,84 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cons = Provider.of<Const>(context);
-    return NavigationView(
-      contentShape: RoundedRectangleBorder(
-        side: BorderSide(
-          width: 0.7,
-          color: Colors.green,
+    return WindowBorder(
+      color: Colors.green,
+      width: 0.9,
+      child: NavigationView(
+        contentShape: RoundedRectangleBorder(
+          side: BorderSide(
+            width: 0.7,
+            color: Colors.green,
+          ),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+          ),
         ),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(28.0),
-        ),
-      ),
-      appBar: NavigationAppBar(
-        // backgroundColor: const Color.fromRGBO(161, 208, 0, 0.5),
-        // backgroundColor: Color,
-        title: () {
-          if (kIsWeb) return Text(cons.appName.toString());
-          return MoveWindow(
-            child: Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(
-                left: 20,
-              ),
-              child: Text(
-                cons.appName.toString(),
-                style: const TextStyle(fontSize: 13),
-              ),
-            ),
-          );
-        }(),
-        actions: kIsWeb
-            ? null
-            : MoveWindow(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [Spacer(), WindowButtons()],
+        appBar: NavigationAppBar(
+          // backgroundColor: const Color.fromRGBO(161, 208, 0, 0.5),
+          // backgroundColor: Color,
+          title: () {
+            if (kIsWeb) return Text(cons.appName.toString());
+            return MoveWindow(
+              child: Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(
+                  left: 20,
+                ),
+                child: Text(
+                  cons.appName.toString(),
+                  style: const TextStyle(fontSize: 13),
                 ),
               ),
-        automaticallyImplyLeading: false,
-      ),
-      pane: NavigationPane(
-        autoSuggestBox: AutoSuggestBox(
-          trailingIcon: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(FluentIcons.search),
-          ),
-          placeholder: 'Search your Friend',
-          controller: TextEditingController(),
-          items: const ['Person 1', 'Person 2', 'Person 3', 'Person 4'],
+            );
+          }(),
+          actions: kIsWeb
+              ? null
+              : MoveWindow(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [Spacer(), WindowButtons()],
+                  ),
+                ),
+          automaticallyImplyLeading: false,
         ),
-        displayMode: PaneDisplayMode.auto,
-        selected: cons.navigationPaneIndex,
-        // onChanged: (i) => setState(() => index = i),
-        items: [
-          PaneItemSeparator(),
-          PaneItem(
-            icon: const Icon(FluentIcons.chat_bot),
-            title: const Text('1st Person'),
-            infoBadge: const InfoBadge(
-              source: Text('4'),
+        pane: NavigationPane(
+          autoSuggestBox: AutoSuggestBox(
+            trailingIcon: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(FluentIcons.search),
             ),
+            placeholder: 'Search your Friend',
+            controller: TextEditingController(),
+            items: const ['Person 1', 'Person 2', 'Person 3', 'Person 4'],
           ),
-        ],
-        footerItems: [
-          PaneItemSeparator(),
-          PaneItem(
-            icon: const Icon(FluentIcons.settings),
-            title: const Text('Settings'),
-          ),
-        ],
-      ),
-      content: NavigationBody(
-        index: 0,
-        children: const [
-          ChatScreen(),
-        ],
+          displayMode: PaneDisplayMode.auto,
+          selected: cons.navigationPaneIndex,
+          // onChanged: (i) => setState(() => index = i),
+          items: [
+            PaneItemSeparator(),
+            PaneItem(
+              icon: const Icon(FluentIcons.chat_bot),
+              title: const Text('1st Person'),
+              infoBadge: const InfoBadge(
+                source: Text('4'),
+              ),
+            ),
+          ],
+          footerItems: [
+            PaneItemSeparator(),
+            PaneItem(
+              icon: const Icon(FluentIcons.settings),
+              title: const Text('Settings'),
+            ),
+          ],
+        ),
+        content: NavigationBody(
+          index: 0,
+          children: const [
+            ChatScreen(),
+          ],
+        ),
       ),
     );
   }
