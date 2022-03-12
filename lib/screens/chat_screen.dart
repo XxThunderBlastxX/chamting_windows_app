@@ -1,4 +1,5 @@
 import 'package:agora_rtc_engine/rtc_engine.dart';
+import 'package:agora_vc_windows/widgets/chat.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   int? _remoteUid;
   RtcEngine? _engine;
+
   @override
   void initState() {
     initForAgora();
@@ -54,7 +56,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void chatButton(String type) {}
-
   @override
   Widget build(BuildContext context) {
     return ScaffoldPage(
@@ -121,20 +122,23 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
       content: Mica(
-        child: Stack(
+        child: Column(
           children: [
-            Center(
-              child: renderRemotePreview(_remoteUid),
+            Expanded(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ListView(children: [Chat(), Chat(), Chat()]),
+                ),
+              ),
             ),
             Container(
-              padding: const EdgeInsets.all(20.0),
-              alignment: Alignment.bottomLeft,
-              child: SizedBox(
-                width: 100,
-                height: 100,
-                child: Center(
-                  child: renderLocalPreview(),
-                ),
+              margin: EdgeInsets.all(20),
+              child: TextBox(
+                onSubmitted: (String  text){
+                  print(text);
+                },
               ),
             )
           ],
